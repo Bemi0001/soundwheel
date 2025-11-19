@@ -1,0 +1,121 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro" 
+import Buttons from "../components/Buttons.astro"
+---
+
+<BaseLayout>
+<section class="produkt_visning"> 
+<a href="/" class="back_btn">←</a>
+<div class="grid_1-1">
+<div class="produkt_tekst"> 
+
+<div class="produkt_info"> 
+<h1>SoundWheel Work 500</h1>
+<h2> DKK 19.999</h2>
+</div>
+
+<p>Full access to SoundWheel Work</p>
+
+<ul>
+    <li>Music-driven visualization exercises</li>
+    <li>Danish or English guide</li>
+    <li>Option to toggle the guide on & off</li>
+    <li>6 themes</li>
+    <li>More music, less talk</li>
+    <li>Easily add your employees</li>
+    <li>Intro package with promo materials</li>
+    <li>Tutorial videos for easy onboarding</li>
+</ul>
+<Buttons label="BUY ACCESS" href="/product" variant="light" />
+
+</div>
+<div class="produkt_billede">
+    <img src="products.webp" alt="Product Picture">
+</div>
+</div>
+</section>
+
+
+
+
+</BaseLayout> 
+
+ <style>
+    .produkt_visning {
+      background-color: #3c1415;
+      border-radius: 15px;
+      padding: 1rem;
+    }
+
+    .grid_1-1 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    .produkt_tekst{
+        padding-left: 53px;
+    }
+
+    .produkt_tekst h1 {
+      color: #ece8e8;
+      font-size: 3.4rem;
+      margin-bottom: -0.8rem;
+      
+    }
+    .produkt_info {
+     margin-top: 6rem ;
+     padding-bottom: 5rem; 
+    }
+
+    .produkt_tekst h2 {
+      color: #c5b9b9;
+      font-size: 2.5rem;
+      
+    }
+
+    .produkt_tekst p, .produkt_tekst ul {
+      color: #ece8e8;
+    }
+
+    .produkt_tekst p {
+      margin-bottom: 0.4rem;
+      font-size: 1.9rem;
+      font-weight: 500;
+    }
+
+    .produkt_tekst ul {
+      margin-left: 2rem;
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+    }
+
+    .produkt_billede img {
+      border-radius: 30px;
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+.back_btn {
+  position: absolute;
+  top: 3rem;
+  left: 3rem;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: none;
+  background-color: #ece8e8;   
+  color: #3c1415;              
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  box-shadow: 0 0 6px rgba(0,0,0,0.15);
+  text-decoration: none;
+}
+    
+    </style>
