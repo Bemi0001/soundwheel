@@ -1,0 +1,70 @@
+---
+import Buttons from "../components/Buttons.astro"
+
+export interface Props {
+  h1: string;
+  h2: string;
+  h3: string;
+}
+
+const { h1, h2, h3 } = Astro.props;
+
+---
+
+
+<style>
+  .card {
+    width: 300px;
+    height: 300px;
+    background: #3C1415;
+    border-radius: 16px;
+    padding: 1rem;
+    padding-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+     align-items: center; 
+    text-align: center;
+  }
+
+  .text-group {
+    flex-direction: column;
+    color: #EEEAEA;
+    margin-top: 15px;
+    line-height: 0.1; 
+
+  }
+  h1 {
+    font-size: 22px;
+    font-weight: lighter;
+    font-family: "Heebo", sans-serif;
+  }
+
+  h2 {
+    font-size: 22px;
+    font-weight: bold;
+    font-family: "Heebo", sans-serif;
+  }
+
+h3 {
+    font-size: 22px;
+    font-weight: lighter;
+     font-family: "Heebo", sans-serif;
+}
+
+button {
+  margin-top: 6rem; 
+}
+
+</style>
+
+<div class="card">
+  <div class="text-group">
+    <h1>{h1}</h1>
+    <h2>{h2}</h2>
+    <h3>{h3}</h3>
+  </div>
+
+  <Buttons label="BUY ACCESS" href="/product" variant="light" /> 
+</div>
+
