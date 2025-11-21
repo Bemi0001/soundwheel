@@ -1,8 +1,410 @@
 ---
-import Layout from '../layouts/BaseLayout.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from "../components/Nav.astro"
+import Footer from "../components/Footer.astro"
+import Buttons from "../components/Buttons.astro"
+import Cards from "../components/Cards.astro"
+
+const supabaseUrl = "https://lowqopppgtqzcjjeezeu.supabase.co"
+const supabaseKey = "sb_publishable_nym7Jt8c5eKgQ8fySuMaCQ_LS9iXeuU"
+
+type Plan = {
+  id: number;
+  title: string;
+  price: number;
+  info: string;
+};
+
+let plans: Plan[] = [];
+
+try {
+  const res = await fetch(
+    `${supabaseUrl}/rest/v1/plan?select=id,title,price,info`,
+    {
+      headers: {
+        apikey: supabaseKey,
+        Authorization: `Bearer ${supabaseKey}`,
+      },
+    }
+  );
+
+  if (!res.ok) {
+    console.error("Supabase index error", res.status, await res.text());
+  } else {
+    plans = await res.json();
+  }
+} catch (err) {
+  console.error("Supabase index fetch failed", err);
+}
+
+function formatPrice(price: number | null | undefined) {
+  if (price == null) return "";
+  return new Intl.NumberFormat("da-DK").format(price);
+}
 
 ---
 
-<Layout>
-	
-</Layout>
+<BaseLayout>
+<Nav />
+
+<section class="hero">
+  <img class="hero-image" src="/relax.webp" alt="Woman Relaxing">
+</section>
+
+<section class="product">
+<div class="grid_1-1">
+ <div class="info">
+    <h1>From<br><span class="bold">DKK 9,999</span><br>Up to 100 employees</h1>
+    <p>Full acces to SoundWheel work</p>
+    <Buttons label="BUY ACCESS" href="/product" variant="dark" />
+ </div>
+ <div>
+    <img src="phones.webp" alt="Two Phones">
+ </div>
+
+</div>
+</section>
+
+<section class="plans">
+<h2>Select a plan</h2>
+
+<div class="grid_1-1-1">
+    {plans?.map((plan: Plan) => (
+    <Cards
+      h1={plan.title}
+      h2={plan.info}
+      h3={`DKK ${formatPrice(plan.price)}`}
+      href={`/product/${plan.id}`}   
+    />
+  ))}
+</div>
+</section>
+
+<section class="information">
+<div class="info_tekst">
+<p>In a busy workday, small mental breaks are essential for employee wellbeing, focus, and productivity.<br>
+SoundWheel’s sound-based journeys offer an easy and engaging way to pause, reducing stress while helping employees reset mentally. By combining dynamic music, SoundWheel supports a healthier pause culture and provides a quick, effective boost of clarity and renewed energy.</p>
+</div>
+
+    <img src="logo-svg.svg" alt="logo" class="img-left">
+    <img src="wave.webp" alt="wave icon" class="img-right">
+</section>
+
+<section class="workshop">
+<h3>Our Workshops</h3>
+<h2>Book a live SoundWheel workshop to boost<br>team wellbeing with guided sound, mindful<br>pause, and mental clarity.</h2>
+
+<div class="workshop_grid">
+ <div class="workshop_card">
+  <div class="workshop_images-row">
+    <img src="tre.webp" alt="Three People" class="workshop_img">
+    <img src="sound.webp" alt="Two people listening" class="workshop_img">
+  </div>
+
+  <div class="workshop_info-row">
+    <p class="workshop_text">
+      For those feeling the pressure of busy days<br>
+      this session offers a moment to breathe.
+    </p>
+    <span class="badge">55 Min</span>
+  </div>
+</div>
+
+  <div class="workshop_card workshop_right">
+  <img src="yoga.webp" alt="People relaxing" class="workshop_img">
+
+  <div class="workshop_info-row">
+    <p class="workshop_text">
+      Each session leads employees through<br>immersive sound and visualization designed 
+      to<br>ease stress and renew mental energy.
+    </p>
+
+    <div class="workshop_buttons">
+      <Buttons label="BOOK NOW" href="/product" variant="dark" />
+      <button class="arrow_btn">→</button>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+
+<section class="Hall">
+<h2> Hall of<br>Happy Employees</h2>
+
+<div class="hall-gallery">
+  <figure class="hall-item"><img src="hall1.webp" alt="Employee 1"></figure>
+  <figure class="hall-item"><img src="hall2.webp" alt="Employee 2"></figure>
+  <figure class="hall-item"><img src="hall3.webp" alt="Employee 3"></figure>
+  <figure class="hall-item"><img src="hall4.webp" alt="Employee 4"></figure>
+  <figure class="hall-item"><img src="hall5.webp" alt="Employee 5"></figure>
+  <figure class="hall-item"><img src="hall6.webp" alt="Employee 6"></figure>
+</div>
+</section>
+
+
+<Footer />
+</BaseLayout>
+
+<style>
+.hero {
+  margin: 0 auto;      
+}
+
+.hero-image {
+  width: 100%;       
+  height: auto;
+  border-radius: 20px;
+  display: block;
+}
+
+.product{
+    margin-top: 9rem;
+    margin-bottom: 6rem;
+}
+
+h1{
+ line-height: 2.5rem;
+ font-weight: 300;
+ font-size: 1.8rem;
+ margin-bottom: 50px;
+}
+
+.bold {
+    font-weight: 800;
+    font-size: 2.7rem;
+}
+
+p{
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    font-weight: 300;
+}
+
+.info{
+    margin-left: 90px;
+    margin-top: 12rem;
+}
+
+.grid_1-1{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.plans {
+  max-width: 950px;  
+  margin: 0 auto;   
+  margin-bottom: 100px;  
+
+}
+.grid_1-1-1{
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    justify-items: center;
+    gap: -7rem;
+}
+
+h2{
+    font-size: 3.5rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.information{
+    background-color: #3C1415;
+    border-radius: 16px;
+    padding-inline: 1rem;
+    padding-top: 3rem;
+    padding-bottom: 20rem;
+    margin-bottom: 60px;
+    position: relative;
+}
+.info_tekst p{
+    color: #FFFFFF;
+    text-indent: 45rem;
+    font-size: 2.1rem;
+    line-height: 45px;
+    
+}
+
+.img-left {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  width: 70px;
+}
+
+
+.img-right {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  width: 400px;     
+}
+
+.workshop{
+    margin-top: 120px;
+}
+
+.workshop h3{
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.workshop h2{
+    font-weight: 700;
+    font-size: 3rem;
+    text-align: center;
+    line-height: 50px;
+    margin-bottom: 70px;
+}
+
+.workshop_grid {
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+
+.workshop_card {
+  text-align: left;
+}
+
+
+.workshop_images-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.workshop_img {
+  width: 100%;
+  border-radius: 16px;
+  display: block;
+}
+
+
+.workshop_images-row .workshop_img {
+  flex: 1;
+}
+
+
+.badge {
+  display: inline-block;
+  background: #c5acac;
+  color: #3C1415;
+  padding: 0.25rem 0.8rem;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.workshop_info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: -5px;
+}
+
+.workshop_right .workshop_info-row {
+  margin-top: 14px;  
+}
+
+
+
+.workshop_text {
+  font-size: 1.05rem;
+  line-height: 1.35;
+  max-width: 90%;
+  margin: 0;
+}
+
+.workshop_buttons {
+  display: flex;
+  align-items: center;
+  gap: 0rem;
+}
+
+.arrow_btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #3C1415;
+  color: #FFFFFF;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.Hall{
+margin-top: 100px;
+margin-bottom: 120px;
+}
+
+.Hall h2{
+    text-align: left;
+    line-height: 70px;
+    font-size: 4.5rem;
+    font-weight: 600;
+}
+
+
+.hall-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1.25rem;
+  align-items: start;
+  margin-top: 35px;
+}
+
+
+.hall-item {
+  width: 100%;
+  aspect-ratio: 4 / 5;       
+  overflow: hidden;
+  border-radius: 18px;
+  box-shadow: 0 6px 18px rgba(44,22,21,0.06); 
+  background: #fff;
+}
+
+
+
+/******** mobile version********/
+
+@media (max-width: 750px) {
+
+  .grid_1-1 {
+    grid-template-columns: 1fr;   
+    text-align: left;
+  }
+
+  .info {
+    margin-left: 0;
+    margin-top: -5rem;
+    padding-inline: 1rem;        
+  }
+
+  .info h1 {
+    font-size: 2rem;
+    line-height: 2.3rem;
+  }
+
+  .bold {
+    font-size: 2.7rem;           
+  }
+
+  .info p {
+    font-size: 1.3rem;
+  }
+
+  .product img {
+    width: 100%;
+    height: auto;
+    margin-top: 2rem;
+    border-radius: 20px;
+  }
+}
+
+
+</style>

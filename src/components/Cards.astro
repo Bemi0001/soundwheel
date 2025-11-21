@@ -5,9 +5,10 @@ export interface Props {
   h1: string;
   h2: string;
   h3: string;
+  href?: string;
 }
 
-const { h1, h2, h3 } = Astro.props;
+const { h1, h2, h3, href = "/product" } = Astro.props;
 
 ---
 
@@ -25,14 +26,14 @@ const { h1, h2, h3 } = Astro.props;
     justify-content: space-between; 
      align-items: center; 
     text-align: center;
+    
   }
 
   .text-group {
     flex-direction: column;
     color: #EEEAEA;
     margin-top: 15px;
-    line-height: 0.1; 
-
+    gap: 0.1rem;  
   }
   h1 {
     font-size: 22px;
@@ -65,6 +66,6 @@ button {
     <h3>{h3}</h3>
   </div>
 
-  <Buttons label="BUY ACCESS" href="/product" variant="light" /> 
+  <Buttons label="BUY ACCESS" href={href} variant="light" /> 
 </div>
 
