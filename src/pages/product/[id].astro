@@ -153,4 +153,68 @@ function formatPrice(price: any) {
     box-shadow: 0 0 6px rgba(0,0,0,0.15);
     text-decoration: none;
   }
+
+  @media (max-width: 750px) {
+  .produkt_visning {
+    padding: 1.5rem 1rem 2rem;
+    margin-top: 1rem;
+    border-radius: 16px;
+  }
+
+  .grid_1-1 {
+    grid-template-columns: 1fr;   
+    gap: 1.75rem;
+  }
+
+  .produkt_tekst {
+    padding-left: 0;
+  }
+
+  .produkt_info {
+    margin-top: 0.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .produkt_tekst h1 {
+    font-size: 2.3rem;
+    line-height: 2.4rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .produkt_tekst h2 {
+    font-size: 1.6rem;
+  }
+
+  .produkt_tekst p {
+    font-size: 1.3rem;
+    margin-top: 1.5rem;
+  }
+
+  .produkt_tekst ul {
+    margin-left: 1.2rem;
+    font-size: 1.2rem;
+  }
+
+  
+  .produkt_billede img {
+    margin-top: 0.5rem;
+    width: 100%;
+    height: auto;
+    border-radius: 22px;
+    display: block;
+  }
+
+  
+  .back_btn {
+    top: 1.5rem;
+    right: 1.5rem;
+    left: auto;
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+  }
+}
+
+
+
 </style>
